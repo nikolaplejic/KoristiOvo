@@ -40,4 +40,3 @@
 (defn stop-app []
   (when @*app* (stop @*app*)))
 
-(defn -main [& args] (start-app))

@@ -4,4 +4,4 @@
                  [compojure "0.3.2"]]
   :dev-dependencies [[leiningen/lein-swank "1.1.0"]]
   :source-path "src"
-  :main koristiovo.core)
+  :main koristiovo.main)
