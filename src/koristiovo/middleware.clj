@@ -13,3 +13,10 @@
                     [:headers "Content-Type"] 
                     (str content-type "; charset=" charset))) 
         response)))) 
+
+(defn wrap-admin 
+  "If the user is logged in, let her in. Otherwise, 404."
+  [handler]
+  (fn [request]
+    (if-let [user (session/session-get :user)]
+      (handler request))))

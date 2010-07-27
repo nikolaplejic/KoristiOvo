@@ -21,6 +21,9 @@
            (GET "/" [] (render (core/index {:title "foo"})))
            (GET "/interview" [] (render (core/interview *sample-interview*))))
 
+(defroutes admin-routes
+           (GET "/login" [] (render (admin/login))))
+
 (defroutes static-routes
            (GET ["/:filename" :filename #".*"] [filename]
                 (response/file-response filename {:root "public"})))
@@ -32,6 +35,7 @@
 
 (defroutes koristiovo-routes
            public-routes 
+           admin-routes
            static-routes
            error-routes)
 

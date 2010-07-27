@@ -15,3 +15,14 @@
              [ctxt]
              [:title] (content (:title ctxt)))
 
+(deftemplate login "koristiovo/templates/login.html" [])
+
+;; ========================================
+;; Misc. methods
+;; ========================================
+
+;;(defn do-login
+;;  [username password]
+;;  (if (and (= username "nikola") (= password "np2010"))
+;;    (session/session-put! :user username :password password)
+;;    nil))
