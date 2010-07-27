@@ -41,4 +41,4 @@
 ;; ========================================
 
 (defn start-app []
-  (run-jetty (var koristiovo-routes) {:port 8080}))
+  (run-jetty koristiovo-routes {:port 8080}))
