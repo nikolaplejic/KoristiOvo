@@ -1,4 +1,5 @@
 (ns koristiovo.core
+  "Core frontend templates for the website"
   (:use [net.cgrand.enlive-html
          :only [deftemplate defsnippet content clone-for
                 nth-of-type first-child do-> set-attr sniptest at emit*]])

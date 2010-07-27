@@ -5,11 +5,12 @@
   (:use compojure.core
         ring.adapter.jetty
         koristiovo.utils
-        koristiovo.core
         koristiovo.testdata)
   (:require (compojure [route :as route])
             (ring.util [response :as response])
-            (koristiovo [middleware :as middleware]))
+            (koristiovo [core :as core]
+                        [admin :as admin]
+                        [middleware :as middleware]))
   (:gen-class))
 
 ;; ========================================
@@ -17,8 +18,8 @@
 ;; ========================================
 
 (defroutes public-routes
-           (GET "/" [] (render (index {:title "foo"})))
-           (GET "/interview" [] (render (interview *sample-interview*))))
+           (GET "/" [] (render (core/index {:title "foo"})))
+           (GET "/interview" [] (render (core/interview *sample-interview*))))
 
 (defroutes static-routes
            (GET ["/:filename" :filename #".*"] [filename]
