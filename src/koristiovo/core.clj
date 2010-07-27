@@ -3,10 +3,7 @@
          :only [deftemplate defsnippet content clone-for
                 nth-of-type first-child do-> set-attr sniptest at emit*]])
   (:use compojure.core
-        ring.adapter.jetty
         koristiovo.utils)
-  (:require (compojure [route :as route])
-            (ring.util [response :as response]))
   (:gen-class))
 
 ;; ========================================
@@ -17,30 +14,14 @@
              [ctxt]
              [:title] (content (:title ctxt)))
 
-;; ========================================
-;; Routes
-;; ========================================
+(deftemplate interview "koristiovo/templates/interview.html"
+             [ctxt]
+             [:title] (content (:name ctxt) " koristi ovo:")
+             [:h1.name] (content (:name ctxt))
+             [:p.occupation] (content (:occupation ctxt))
+             [:p#q-software] (content (:software ctxt))
+             [:p#q-hardware] (content (:hardware ctxt))
+             [:p#q-dream-setup] (content (:dream-setup ctxt))
+             [:p#q-bio] (content (:bio ctxt))
+             [:img#interview-image] (set-attr :src (:image ctxt)))
 
-(defroutes public-routes
-           (GET "/" [] (render (index {:title "foo"}))))
-
-(defroutes static-routes
-           (GET ["/:filename" :filename #".*"] [filename]
-                (response/file-response filename {:root "public"})))
-
-(defroutes error-routes
-           (route/not-found "Page not found"))
-
-(wrap! public-routes (:charset "utf8"))
-
-(defroutes koristiovo-routes
-           public-routes 
-           static-routes
-           error-routes)
-
-;; ========================================
-;; The App
-;; ========================================
-
-(defn start-app []
-  (future (run-jetty (var koristiovo-routes) {:port 8080})))
