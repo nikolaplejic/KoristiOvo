@@ -21,18 +21,24 @@
 ;; Routes
 ;; ========================================
 
-(defroutes koristiovo-routes
-           (GET "/" []
-                (render (index {:title "foo"})))
+(defroutes public-routes
+           (GET "/" [] (render (index {:title "foo"}))))
+
+(defroutes static-routes
            (GET ["/:filename" :filename #".*"] [filename]
-                (response/file-response filename {:root "public"}))
+                (response/file-response filename {:root "public"})))
+
+(defroutes error-routes
            (route/not-found "Page not found"))
+
+(defroutes koristiovo-routes
+           public-routes 
+           static-routes
+           error-routes)
 
 ;; ========================================
 ;; The App
 ;; ========================================
 
-(defonce *app* (atom nil))
-
 (defn start-app []
-  (run-jetty koristiovo-routes {:port 8080}))
+  (run-jetty (var koristiovo-routes) {:port 8080}))
