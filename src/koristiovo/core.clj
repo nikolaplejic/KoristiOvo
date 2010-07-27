@@ -25,7 +25,7 @@
            (GET "/" []
                 (render (index {:title "foo"})))
            (GET ["/:filename" :filename #".*"] [filename]
-                (response/file-response filename {:root ""}))
+                (response/file-response filename {:root "public"}))
            (route/not-found "Page not found"))
 
 ;; ========================================
