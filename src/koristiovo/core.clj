@@ -2,8 +2,11 @@
   (:use [net.cgrand.enlive-html
          :only [deftemplate defsnippet content clone-for
                 nth-of-type first-child do-> set-attr sniptest at emit*]])
-  (:use koristiovo.utils)
-  (:use compojure)
+  (:use compojure.core
+        ring.adapter.jetty
+        koristiovo.utils)
+  (:require (compojure [route :as route])
+            (ring.util [response :as response]))
   (:gen-class))
 
 ;; ========================================
@@ -19,11 +22,11 @@
 ;; ========================================
 
 (defroutes koristiovo-routes
-   (GET "/"
-      (render (index {:title "foo"})))
-  (ANY "*"
-       [404 "Page Not Found"]))
-
+           (GET "/" []
+                (render (index {:title "foo"})))
+           (GET ["/:filename" :filename #".*"] [filename]
+                (response/file-response filename {:root ""}))
+           (route/not-found "Page not found"))
 
 ;; ========================================
 ;; The App
@@ -32,11 +35,4 @@
 (defonce *app* (atom nil))
 
 (defn start-app []
-  (if (not (nil? @*app*))
-    (stop @*app*))
-  (reset! *app* (run-server {:port 8080}
-                            "/*" (servlet koristiovo-routes))))
-
-(defn stop-app []
-  (when @*app* (stop @*app*)))
-
+  (run-jetty koristiovo-routes {:port 8080}))
