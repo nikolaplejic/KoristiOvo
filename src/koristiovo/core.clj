@@ -31,6 +31,8 @@
 (defroutes error-routes
            (route/not-found "Page not found"))
 
+(wrap! public-routes (:charset "utf8"))
+
 (defroutes koristiovo-routes
            public-routes 
            static-routes
@@ -41,4 +43,4 @@
 ;; ========================================
 
 (defn start-app []
-  (run-jetty koristiovo-routes {:port 8080}))
+  (future (run-jetty (var koristiovo-routes) {:port 8080})))

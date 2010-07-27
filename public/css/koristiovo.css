@@ -1,0 +1,76 @@
+/* CSS Document 
+Koristi ovo [www.koristiovo.com]
+Izrada: Blagonic Brothers [www.blagonic.com]
+*/
+
+*{ margin:0px; padding:0px; }
+body{ font: 62.5% Arial, Helvetica, sans-serif; text-align:center; color:#888; /*background:url(../img/grid960.png) repeat-y center top;*/ background-color:#333; }
+
+/* Layout */
+
+/* Main definitions */
+p, h1, h2, h3, h4, h5, h6, a, ul, #site-name {  text-shadow:1px 1px 0px #111; }
+h1, #site-name { font-size:3.6em; font-weight:normal; color:#cf4b2c; font-family:'Droid Serif', Arial, Helvetica, sans-serif; }
+h1 { color:#eee; font-family:Georgia, "Times New Roman", Times, serif; }
+h2 { font-size:2.8em; color:#ccc; }
+h3 { font-size:2em; color:#ccc; }
+p { font-size:1.4em; line-height:1.6em; margin-bottom:20px; }
+
+a { text-decoration:none; color:#cf4b2c; }
+a:hover { text-decoration:none; background-color:#222; }
+
+strong { font-weight:bold; }
+em { font-style:italic; }
+
+ul { font-size:1.2em; line-height:1.8em; list-style:disc outside; padding:0 30px; margin-bottom:20px; }
+ul li {  }
+
+.alignleft { float:left; }
+.alignright { float:right; }
+.clear { clear:both; }
+.first { margin-left:0; }
+
+p.welcome { font-size:2em; font-family:Georgia, "Times New Roman", Times, serif; letter-spacing:1px; color:#bbb; }
+#sidebar p { font-size:1.2em; color:#666; }
+p.footnote { font-size:1.2em; color:#666; }
+
+/* Layout */
+#container { width:960px; margin:0 auto; text-align:left; }
+#header { width:960px; padding:20px 0 0 0; border-bottom:1px dotted #666; position:relative; }
+#content { width:620px; margin:0 auto; padding:30px 0; position:relative; }
+#sidebar { width:300px; float:right; padding:30px 0; }
+#footer { border-top:1px dotted #666; padding-top:30px; }
+
+.altlayout #content { margin-left:10px; float:left;  }
+.altlayout #sidebar { margin-right:10px; float:right; }
+
+/* Hadnav */
+#nav { font-size:1.4em; list-style:none; font-family:'Droid Serif', Arial, Helvetica, sans-serif; padding:0; text-transform:uppercase; float:right; margin:0; position:absolute; top:40px; right:0; }
+#nav li { float:left; background:url(../img/navseparator.png) no-repeat center left; padding:0 6px 0 12px; }
+#nav li a { display:block;  padding:2px 10px; line-height:2em; }
+#nav li a:hover, #nav li a.selected:hover { background-color:#222; color:#fff; }
+#nav li.first { padding-left:6px; background-image:none; }
+#nav li.last { padding-right:0; }
+#nav li a.selected { background-color:#222; color:#bbb; }
+
+/* Interview list */
+#content ul#interviews { width:620px; padding:0; list-style:none; }
+#content ul#interviews li { margin-bottom:20px; color:#; }
+#content ul#interviews li span { font-size:1.2em; display:block; line-height:2em; }
+#content ul#interviews li a { text-decoration:none; font-size:2.4em; font-weight:bold; /*font-family:Georgia, "Times New Roman", Times, serif;*/ }
+#content ul#interviews li a:hover {}
+#content ul#interviews li a img { display:block; margin-bottom:10px; }
+
+/* Intro */
+.intro { font-family:Georgia, "Times New Roman", Times, serif; border-bottom:1px dotted #666; margin-bottom:20px; color:#666; }
+
+.intro img { margin-bottom:20px; }
+.intro .occupation { margin-bottom:0; color:#999; }
+.intro .date {}
+
+/* Prev/Next */
+.prev, .next { position:absolute; top:30px; display:block; background-color:#272727; width:140px; font-size:1.1em; text-transform:uppercase; }
+.prev a, .next a { padding:20px 10px; display:block; text-align:center; line-height:1.6em; text-shadow:none; color:#555; }
+.prev a span, .next a span { display:block; text-transform:uppercase; color:#999; }
+.prev { left:-180px; }
+.next { right:-180px; }
