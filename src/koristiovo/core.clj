@@ -13,7 +13,7 @@
 ;; Templates
 ;; ========================================
 
-(deftemplate index "koristiovo/index.html"
+(deftemplate index "koristiovo/templates/index.html"
              [ctxt]
              [:title] (content (:title ctxt)))
 
