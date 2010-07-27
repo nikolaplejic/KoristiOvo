@@ -8,7 +8,8 @@
         koristiovo.core
         koristiovo.testdata)
   (:require (compojure [route :as route])
-            (ring.util [response :as response]))
+            (ring.util [response :as response])
+            (koristiovo [middleware :as middleware]))
   (:gen-class))
 
 ;; ========================================
@@ -26,7 +27,7 @@
 (defroutes error-routes
            (route/not-found "Page not found"))
 
-(wrap! public-routes (:charset "utf8"))
+(wrap! public-routes (middleware/wrap-charset "utf8"))
 
 (defroutes koristiovo-routes
            public-routes 
