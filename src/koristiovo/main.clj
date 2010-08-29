@@ -5,7 +5,8 @@
   (:use compojure.core
         ring.adapter.jetty
         koristiovo.utils
-        koristiovo.testdata)
+        koristiovo.testdata
+        sandbar.stateful-session)
   (:require (compojure [route :as route])
             (ring.util [response :as response])
             (koristiovo [core :as core]
@@ -19,10 +20,12 @@
 
 (defroutes public-routes
            (GET "/" [] (render (core/index {:title "foo"})))
+           (GET "/login" [] (render (admin/login)))
+           (POST "/login" [username password] (admin/do-login username password))
            (GET "/interview" [] (render (core/interview *sample-interview*))))
 
 (defroutes admin-routes
-           (GET "/login" [] (render (admin/login))))
+           (GET "/list" [] (render (admin/interview-list))))
 
 (defroutes static-routes
            (GET ["/:filename" :filename #".*"] [filename]
@@ -32,12 +35,15 @@
            (route/not-found "Page not found"))
 
 (wrap! public-routes (middleware/wrap-charset "utf8"))
+(wrap! admin-routes (middleware/wrap-charset "utf8") middleware/wrap-admin)
 
 (defroutes koristiovo-routes
            public-routes 
            admin-routes
            static-routes
            error-routes)
+
+(wrap! koristiovo-routes wrap-stateful-session)
 
 ;; ========================================
 ;; The App

@@ -4,7 +4,11 @@
          :only [deftemplate defsnippet content clone-for
                 nth-of-type first-child do-> set-attr sniptest at emit*]])
   (:use compojure.core
-        koristiovo.utils)
+        koristiovo.utils
+        koristiovo.users
+        sandbar.stateful-session)
+  (:require (sandbar [stateful-session :as session])
+     (ring.util [response :as response]))
   (:gen-class))
 
 ;; ========================================
@@ -17,12 +21,17 @@
 
 (deftemplate login "koristiovo/templates/login.html" [])
 
+(deftemplate interview-list "koristiovo/templates/list.html" [])
+
 ;; ========================================
 ;; Misc. methods
 ;; ========================================
 
-;;(defn do-login
-;;  [username password]
-;;  (if (and (= username "nikola") (= password "np2010"))
-;;    (session/session-put! :user username :password password)
-;;    nil))
+(defn do-login
+  [username password]
+  (if (and (contains? users username) (= password (users username)))
+    (do 
+      (session-put! :user username)
+      (response/redirect "/list"))
+    (do 
+      (response/redirect "/"))))
