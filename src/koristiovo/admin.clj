@@ -6,7 +6,8 @@
   (:use compojure.core
         koristiovo.utils
         koristiovo.users
-        sandbar.stateful-session)
+        sandbar.stateful-session
+        clojure.test)
   (:require (sandbar [stateful-session :as session])
      (ring.util [response :as response]))
   (:gen-class))
@@ -27,11 +28,21 @@
 ;; Misc. methods
 ;; ========================================
 
+(defn check-login
+  [username password user-list]
+  (if (and (contains? user-list username) (= password (user-list username)))
+    true
+    false))
+
 (defn do-login
   [username password]
-  (if (and (contains? users username) (= password (users username)))
+  (if (check-login username password users)
     (do 
       (session-put! :user username)
       (response/redirect "/list"))
     (do 
       (response/redirect "/"))))
+
+(deftest foo 
+         (is (= true (check-login "username" "password" users-test)))
+         (is (= false (check-login "foo" "bar" users-test))))
