@@ -22,7 +22,18 @@
 
 (deftemplate login "koristiovo/templates/login.html" [])
 
-(deftemplate interview-list "koristiovo/templates/list.html" [])
+(deftemplate interview-list "koristiovo/templates/list.html"
+             [file-list]
+             [:ul#user-list :li] (clone-for [item file-list] 
+                                            [:a] (do-> 
+                                                   (content (:title item)) 
+                                                   (set-attr :href (:file item)))))
+
+(deftemplate interview-list-empty "koristiovo/templates/list.html" 
+             []
+             [:div#content] (content "Nema unosa u bazi"))
+
+(deftemplate interview-edit "koristiovo/templates/interview-edit.html" [])
 
 ;; ========================================
 ;; Misc. methods
@@ -42,6 +53,20 @@
       (response/redirect "/list"))
     (do 
       (response/redirect "/"))))
+
+(defn list-interviews
+  []
+  (if (= (load-file "filelist.clj") [])
+    (render (render (interview-list-empty)))
+    (render (render (interview-list (load-file "filelist.clj"))))))
+
+(defn edit-interview
+  [id]
+  (render (interview-edit)))
+
+;; ========================================
+;; Tests
+;; ========================================
 
 (deftest foo 
          (is (= true (check-login "username" "password" users-test)))

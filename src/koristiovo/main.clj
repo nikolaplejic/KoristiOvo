@@ -3,6 +3,7 @@
          :only [deftemplate defsnippet content clone-for
                 nth-of-type first-child do-> set-attr sniptest at emit*]])
   (:use compojure.core
+        clojure.contrib.duck-streams
         ring.adapter.jetty
         koristiovo.utils
         koristiovo.testdata
@@ -25,7 +26,8 @@
            (GET "/interview" [] (render (core/interview *sample-interview*))))
 
 (defroutes admin-routes
-           (GET "/list" [] (render (admin/interview-list))))
+           (GET "/list" [] (admin/list-interviews))
+           (GET "/edit/:id" [id] (admin/edit-interview id)))
 
 (defroutes static-routes
            (GET ["/:filename" :filename #".*"] [filename]
