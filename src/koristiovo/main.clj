@@ -1,7 +1,8 @@
 (ns koristiovo.main
   (:use [net.cgrand.enlive-html
-         :only [deftemplate defsnippet content clone-for
-                nth-of-type first-child do-> set-attr sniptest at emit*]])
+         :only [deftemplate defsnippet html-resource content clone-for
+                nth-of-type first-child do-> set-attr sniptest at emit*
+                select]])
   (:use compojure.core
         clojure.contrib.duck-streams
         ring.adapter.jetty
@@ -26,6 +27,8 @@
            (GET "/interview" [] (render (core/interview *sample-interview*))))
 
 (defroutes admin-routes
+           (GET "/add" [] (render (admin/interview-add)))
+           ;(POST "/add" [] (admin/add-interview foo))
            (GET "/list" [] (admin/list-interviews))
            (GET "/edit/:id" [id] (admin/edit-interview id)))
 

@@ -1,8 +1,9 @@
 (ns koristiovo.admin
   "Administration interface"
   (:use [net.cgrand.enlive-html
-         :only [deftemplate defsnippet content clone-for
-                nth-of-type first-child do-> set-attr sniptest at emit*]])
+         :only [deftemplate defsnippet html-resource content clone-for
+                nth-of-type first-child do-> set-attr sniptest at emit*
+                select]])
   (:use compojure.core
         koristiovo.utils
         koristiovo.users
@@ -33,7 +34,13 @@
              []
              [:div#content] (content "Nema unosa u bazi"))
 
-(deftemplate interview-edit "koristiovo/templates/interview-edit.html" [])
+(deftemplate interview-edit "koristiovo/templates/interview-edit.html"
+             [data]
+             [:#action] (content "Mijenjaj intervju"))
+
+(deftemplate interview-add "koristiovo/templates/interview-edit.html"
+             []
+             [:#action] (content "Dodaj intervju"))
 
 ;; ========================================
 ;; Misc. methods
@@ -62,8 +69,17 @@
 
 (defn edit-interview
   [id]
-  (render (interview-edit)))
-
+  (def source (html-resource (apply str (concat "koristiovo/templates/" id))))
+  (def data {:name (select source [:h1.name])
+             :occupation (select source [:p.occupation])
+             :image (:src (:attrs (first (select source [:#interview-image]))))
+             :bio (select source [:#q-bio])
+             :hardware (select source [:#q-hardware])
+             :software (select source [:#q-software])
+             :dream-setup (select source [:#q-dream-setup])
+             :id id})
+  (render interview-edit data))
+  
 ;; ========================================
 ;; Tests
 ;; ========================================

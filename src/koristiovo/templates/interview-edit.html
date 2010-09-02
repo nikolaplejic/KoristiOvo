@@ -1,1 +1,62 @@
-bar
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Interview admin</title>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset-fonts-grids/reset-fonts-grids.css" />
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/base/base-min.css" />
+    <style type="text/css">
+      div { text-align: left; }
+      div.field { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+  <div id="header">
+    <h1>KoristiOvo admin</h1>
+    <h2 id="action">Radi nešto s intervjuom</h2>
+  </div>
+
+  <div id="nav">
+    <a href="/list">Natrag na početak</a>
+  </div>
+
+  <div id="content">
+    <form id="edit-interview" action="/add" method="post">
+      <div class="field">
+        <strong>Ime</strong><br />
+        <input type="text" name="name" value="" id="name" />
+      </div>
+      <div class="field">
+        <strong>Zanimanje</strong><br />
+        <input type="text" name="occupation" value="" id="occupation" />
+      </div>
+      <div class="field">
+        <strong>Osobna fotka</strong><br />
+        <input type="file" name="personalphoto" value="" id="personalphoto" />
+      </div>
+      <div class="field">
+        <strong>Workspace fotka</strong><br />
+        <input type="file" name="workspacephoto" value="" id="workspacephoto" />
+      </div>
+      <div class="field">
+        <strong>Biografija</strong><br />
+        <textarea name="q-bio" id="q-bio" rows="10" cols="50"></textarea>
+      </div>
+      <div class="field">
+        <strong>Hardver</strong><br />
+        <textarea name="q-hardware" id="q-hardware" rows="10" cols="50"></textarea>
+      </div>
+      <div class="field">
+        <strong>Softver</strong><br />
+        <textarea name="q-software" id="q-software" rows="10" cols="50"></textarea>
+      </div>
+      <div class="field">
+        <strong>Dream setup</strong><br />
+        <textarea name="q-dream-setup" id="dream-setup" rows="10" cols="50"></textarea>
+      </div>
+    </form>
+  </div>
+  
+</body>
+</html>
