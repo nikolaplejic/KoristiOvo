@@ -8,6 +8,7 @@
         ring.adapter.jetty
         koristiovo.utils
         koristiovo.testdata
+        koristiovo.interview
         sandbar.stateful-session)
   (:require (compojure [route :as route])
             (ring.util [response :as response])
@@ -28,9 +29,8 @@
 
 (defroutes admin-routes
            (GET "/add" [] (render (admin/interview-add)))
-           ;(POST "/add" [] (admin/add-interview foo))
-           (GET "/list" [] (admin/list-interviews))
-           (GET "/edit/:id" [id] (admin/edit-interview id)))
+           (GET "/list" [] (admin/do-list-interviews))
+           (GET "/edit/:id" [id] (render (admin/interview-edit (fetch-interview id)))))
 
 (defroutes static-routes
            (GET ["/:filename" :filename #".*"] [filename]

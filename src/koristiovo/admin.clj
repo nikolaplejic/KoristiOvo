@@ -7,6 +7,7 @@
   (:use compojure.core
         koristiovo.utils
         koristiovo.users
+        koristiovo.interview
         sandbar.stateful-session
         clojure.test)
   (:require (sandbar [stateful-session :as session])
@@ -61,29 +62,14 @@
     (do 
       (response/redirect "/"))))
 
-(defn list-interviews
-  []
-  (if (= (load-file "filelist.clj") [])
-    (render (render (interview-list-empty)))
-    (render (render (interview-list (load-file "filelist.clj"))))))
+(defn do-list-interviews
+      []
+      (let [*list* (list-interviews)]
+        (if (= [] *list*)
+          (render (interview-list-empty))
+          (render (interview-list *list*))))) 
 
-(defn edit-interview
-  [id]
-  (def source (html-resource (apply str (concat "koristiovo/templates/" id))))
-  (def data {:name (select source [:h1.name])
-             :occupation (select source [:p.occupation])
-             :image (:src (:attrs (first (select source [:#interview-image]))))
-             :bio (select source [:#q-bio])
-             :hardware (select source [:#q-hardware])
-             :software (select source [:#q-software])
-             :dream-setup (select source [:#q-dream-setup])
-             :id id})
-  (render interview-edit data))
-  
 ;; ========================================
 ;; Tests
 ;; ========================================
 
-(deftest foo 
-         (is (= true (check-login "username" "password" users-test)))
-         (is (= false (check-login "foo" "bar" users-test))))
